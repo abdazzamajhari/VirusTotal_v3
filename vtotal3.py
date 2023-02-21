@@ -3,10 +3,11 @@
 import virustotal_python
 from pprint import pprint
 from base64 import urlsafe_b64encode
+import pandas as pd
 
-url = "ihaveaproblem.info"
+v_url = "bit.ly/shopeebigsale662"
 
-with virustotal_python.Virustotal("<API KEY>") as vtotal:
+with virustotal_python.Virustotal("<your_API_key>") as vtotal:
     try:
         resp = vtotal.request("urls", data={"url": url}, method="POST")
         # Safe encode URL in base64 format
@@ -15,9 +16,13 @@ with virustotal_python.Virustotal("<API KEY>") as vtotal:
         report = vtotal.request(f"urls/{url_id}")
         # pprint(report.object_type)
         # pprint(report.data)
-        result_url = report.data['attributes']['last_analysis_stats']
-        print(url)
-        print(result_url)
+        v_result_url = report.data['attributes']['last_analysis_stats']
+        print(v_url)
+        print(v_result_url)
         
     except virustotal_python.VirustotalError as err:
         print(f"Failed to send URL: {url} for analysis and get the report: {err}")
+
+vt3 = pd.DataFrame(v_result_url, index=[0]).reset_index(drop=True)
+count = (((vt3['malicious']+vt3['suspicious']+vt3['undetected']) / (vt3['harmless']+vt3['malicious']+vt3['suspicious']+vt3['undetected']+vt3['timeout'])) * 100)
+print('Persentase Tidak Aman: '+ str(round(count[0], 1)) + ' %')
