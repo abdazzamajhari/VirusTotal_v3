@@ -1,4 +1,4 @@
 # VirusTotal_v3
 URL Detector Result:<br><br>
-ihaveaproblem.info<br>
-{'harmless': 76, 'malicious': 0, 'suspicious': 1, 'undetected': 13, 'timeout': 0}
+bit.ly/shopeebigsale662
+{'harmless': 78, 'malicious': 2, 'suspicious': 0, 'undetected': 11, 'timeout': 0}
